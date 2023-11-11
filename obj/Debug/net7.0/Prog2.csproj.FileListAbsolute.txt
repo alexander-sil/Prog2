@@ -1,0 +1,15 @@
+/home/arch/Projects/Rep/Prog2/bin/Debug/net7.0/Prog2
+/home/arch/Projects/Rep/Prog2/bin/Debug/net7.0/Prog2.deps.json
+/home/arch/Projects/Rep/Prog2/bin/Debug/net7.0/Prog2.runtimeconfig.json
+/home/arch/Projects/Rep/Prog2/bin/Debug/net7.0/Prog2.dll
+/home/arch/Projects/Rep/Prog2/bin/Debug/net7.0/Prog2.pdb
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/Prog2.csproj.AssemblyReference.cache
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/Prog2.GeneratedMSBuildEditorConfig.editorconfig
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/Prog2.AssemblyInfoInputs.cache
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/Prog2.AssemblyInfo.cs
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/Prog2.csproj.CoreCompileInputs.cache
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/Prog2.dll
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/refint/Prog2.dll
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/Prog2.pdb
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/Prog2.genruntimeconfig.cache
+/home/arch/Projects/Rep/Prog2/obj/Debug/net7.0/ref/Prog2.dll
