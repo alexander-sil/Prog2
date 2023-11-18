@@ -1,11 +1,89 @@
-﻿namespace Prog2 {
+﻿using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+
+namespace Prog2 {
     class Program {
         public static void Main(string[] args) {
-            Console.WriteLine(ProcessFile2("27990_A.txt"));
-            Console.WriteLine(ProcessFile2("27990_B.txt"));
+            Console.WriteLine(ProcessXarySum("88x4y", "7x44y", 9, 11, 61));
+            Console.WriteLine(ProcessXarySum("8x78y", "79xy7", 13, 18, 9));
+            Console.WriteLine(ProcessXarySum("90x4y", "7x44y", 15, 16, 56));
+            Console.WriteLine(ProcessXarySum("x341y", "56x1y", 11, 19, 305));
+            Console.WriteLine(ProcessXarySum("x231y", "78x98y", 12, 14, 99));
+            Console.WriteLine(ProcessXarySum("yx320", "1x3y3", 7, 9, 181));
+            Console.WriteLine(ProcessXarySum("x01y4", "xy544", 9, 8, 89));
+            Console.WriteLine(ProcessXarySum("yAAX", "x02y", 12, 14, 80));
+            Console.WriteLine(ProcessXarySum("2y66x", "x0y1", 9, 12, 170));
+            Console.WriteLine(ProcessXarySum("y04x5", "253xy", 11, 8, 117));;
         }
         // Макс нечетное, делится на 17
         // Мин нечетное, делится на 17
+
+
+        // TODO Заучить или запомнить как идиому
+        
+        public static int ProcessXarySum(string input1, string input2, int base1, int base2, int div) {
+            List<int> operations = new List<int>();
+
+            for (int i = 0; i <= 8; i++) {
+                for (int j = 0; j <= 8; j++) {
+                    string input1Modified = Regex.Replace(Regex.Replace(input1, "x", i.ToString()), "y", j.ToString());
+                    string input2Modified = Regex.Replace(Regex.Replace(input2, "x", i.ToString()), "y", j.ToString());
+                    
+                    int op1 = FromBase(base1, input1Modified);
+                    int op2 = FromBase(base2, input2Modified);
+
+                    int opadd = op1 + op2;
+                    int opdiv;
+
+                    if ((opadd % div) == 0) {
+                        opdiv = opadd / div;
+                        operations.Add(opdiv);
+                    }
+                }
+            }
+
+            return operations.Min();
+        }
+
+        public static int FromBase(int @base, string number) {
+            ProcessStartInfo info = new ProcessStartInfo();
+            
+            info.FileName = "./fromBase";
+            info.Arguments = $"{number} {@base}";
+            info.RedirectStandardOutput = true;
+
+            using Process process = Process.Start(info);
+            using StreamReader reader = process.StandardOutput;
+
+            return int.Parse(reader.ReadToEnd().Trim());
+        }
+
+        public static int ProcessFile9(string path) {
+            string[] rawData = File.ReadAllLines(path);
+            List<int> buffer = new List<int>();
+
+            foreach (string i in rawData) {
+                buffer.Add(int.Parse(i));
+            }
+
+            buffer.Remove(buffer[0]);
+
+            List<(int, int)> pairs = new List<(int, int)>();
+
+            for (int i = 0; i < buffer.Count; i++) {
+                for (int j = 0; j < buffer.Count; j++) {
+                    if (i != j && (((buffer[i] + buffer[j]) % 80) == 0) && ((buffer[i] > 50) || (buffer[j] > 50))) {
+                        Console.WriteLine(buffer[i]);
+                        Console.WriteLine(buffer[j]);
+                        pairs.Add((buffer[i], buffer[j]));
+                    }
+                }
+            }
+
+            return pairs.Count / 2;
+        }
+
 
         public static long ProcessFile3(string path) {
             string[] rawData = File.ReadAllLines(path);
