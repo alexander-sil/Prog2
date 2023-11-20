@@ -5,23 +5,14 @@ using System.Text.RegularExpressions;
 namespace Prog2 {
     class Program {
         public static void Main(string[] args) {
-            Console.WriteLine(ProcessXarySum("88x4y", "7x44y", 9, 11, 61));
-            Console.WriteLine(ProcessXarySum("8x78y", "79xy7", 13, 18, 9));
-            Console.WriteLine(ProcessXarySum("90x4y", "7x44y", 15, 16, 56));
-            Console.WriteLine(ProcessXarySum("x341y", "56x1y", 11, 19, 305));
-            Console.WriteLine(ProcessXarySum("x231y", "78x98y", 12, 14, 99));
-            Console.WriteLine(ProcessXarySum("yx320", "1x3y3", 7, 9, 181));
-            Console.WriteLine(ProcessXarySum("x01y4", "xy544", 9, 8, 89));
-            Console.WriteLine(ProcessXarySum("yAAX", "x02y", 12, 14, 80));
-            Console.WriteLine(ProcessXarySum("2y66x", "x0y1", 9, 12, 170));
-            Console.WriteLine(ProcessXarySum("y04x5", "253xy", 11, 8, 117));;
+            Console.WriteLine(NewProgram.ConvertXarySumW1Var("28x2", "93x5", 18, 12, 133));
+            Console.WriteLine(NewProgram.ConvertXarySumW1Var("2x84", "2B3x", 19, 16, 88));
         }
         // Макс нечетное, делится на 17
         // Мин нечетное, делится на 17
 
 
         // TODO Заучить или запомнить как идиому
-        
         public static int ProcessXarySum(string input1, string input2, int base1, int base2, int div) {
             List<int> operations = new List<int>();
 
