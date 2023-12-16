@@ -9,6 +9,7 @@ namespace Prog2 {
         public enum TaskType { MultN, MultY, EDiff, DCond }
         public static void Main(string[] args)
         {
+         Console.WriteLine($"2 {Solve2("17o.txt")}");
             Console.WriteLine($"3 {Solve("17.txt", TaskType.EDiff, 31)}");
             Console.WriteLine($"4 {Solve("17(1).txt", TaskType.EDiff, 19)}");
             Console.WriteLine($"5 {Solve("17(2).txt", TaskType.MultY, 10)}");
