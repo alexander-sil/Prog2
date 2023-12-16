@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "a6Rq3rk/3WviMIWINrBlA8anqwsYIignz1nNTvR1/t1KQi+XEG263zvmvckWPTi6cS29aAvVJI4rb8LBilQmNQ==",
+  "dgSpecHash": "7iyA2qe6yMLaRzzVwdkQubR8mna0dOcZk0IAA6Y8Hzz6nrBYzzcW8kDxanh/KygOEVAbIeO7HGy+VBDo84AcRw==",
   "success": true,
   "projectFilePath": "/home/arch/Projects/Rep/Prog2/Prog2.csproj",
   "expectedPackageFiles": [
-    "/home/arch/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.11/microsoft.aspnetcore.app.ref.7.0.11.nupkg.sha512"
+    "/home/arch/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
   ],
   "logs": []
 }

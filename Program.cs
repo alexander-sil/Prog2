@@ -3,271 +3,139 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
 namespace Prog2 {
-    class Program {
-        public static void Main(string[] args) {
-            Console.WriteLine(NewProgram.ConvertXarySumW1Var("28x2", "93x5", 18, 12, 133));
-            Console.WriteLine(NewProgram.ConvertXarySumW1Var("2x84", "2B3x", 19, 16, 88));
+
+    class Program
+    {   
+        public enum TaskType { MultN, MultY, EDiff, DCond }
+        public static void Main(string[] args)
+        {
+            Console.WriteLine($"3 {Solve("17.txt", TaskType.EDiff, 31)}");
+            Console.WriteLine($"4 {Solve("17(1).txt", TaskType.EDiff, 19)}");
+            Console.WriteLine($"5 {Solve("17(2).txt", TaskType.MultY, 10)}");
+            Console.WriteLine($"6 {Solve("17(3).txt", TaskType.MultY, 62)}");
+            Console.WriteLine($"7 {Solve("17(4).txt", TaskType.MultN, 14)}");
+            Console.WriteLine($"8 {Solve("17(5).txt", TaskType.MultN, 34)}");
+            Console.WriteLine($"9 {Solve("17(6).txt", TaskType.MultY, 26)}");
+            Console.WriteLine($"10 {Solve("17(7).txt", TaskType.DCond, 3)}");
+            Console.WriteLine($"11 {Solve("17(8).txt", TaskType.DCond, 5)}");
+            Console.WriteLine($"12 {Solve("17(9).txt", TaskType.MultY, 7)}");
+            Console.WriteLine($"13 {Solve("17(10).txt", TaskType.MultY, 9)}");
+            Console.WriteLine($"14 {Solve("17(11).txt", TaskType.MultY, 8)}");
+            Console.WriteLine($"15 {Solve("17(12).txt", TaskType.MultY, 10)}");
+            Console.WriteLine($"16 {Solve("17(13).txt", TaskType.MultY, 117)}");
+            Console.WriteLine($"17 {Solve("17(14).txt", TaskType.MultY, 120)}");
+            Console.WriteLine($"18 {Solve("17(15).txt", TaskType.MultY, 126)}");
+            Console.WriteLine($"19 {Solve("17(16).txt", TaskType.MultY, 80)}");
         }
-        // Макс нечетное, делится на 17
-        // Мин нечетное, делится на 17
 
-
-        // TODO Заучить или запомнить как идиому
-        public static int ProcessXarySum(string input1, string input2, int base1, int base2, int div) {
-            List<int> operations = new List<int>();
-
-            for (int i = 0; i <= 8; i++) {
-                for (int j = 0; j <= 8; j++) {
-                    string input1Modified = Regex.Replace(Regex.Replace(input1, "x", i.ToString()), "y", j.ToString());
-                    string input2Modified = Regex.Replace(Regex.Replace(input2, "x", i.ToString()), "y", j.ToString());
-                    
-                    int op1 = FromBase(base1, input1Modified);
-                    int op2 = FromBase(base2, input2Modified);
-
-                    int opadd = op1 + op2;
-                    int opdiv;
-
-                    if ((opadd % div) == 0) {
-                        opdiv = opadd / div;
-                        operations.Add(opdiv);
-                    }
-                }
+        public static List<int> ReadFile(string path)
+        {
+            List<int> list = new List<int>();
+            string[] lines = File.ReadAllLines(path);
+            foreach (string line in lines)
+            {
+                list.Add(int.Parse(line));
             }
-
-            return operations.Min();
+            return list;
+        
         }
 
-        public static int FromBase(int @base, string number) {
-            ProcessStartInfo info = new ProcessStartInfo();
+        public static int CalculateSums(List<(int, int)> input) {
+            List<int> sums = new List<int>();
+
+            foreach((int item1, int item2) in input) {
+                sums.Add(item1 + item2);
+            }
             
-            info.FileName = "./fromBase";
-            info.Arguments = $"{number} {@base}";
-            info.RedirectStandardOutput = true;
-
-            using Process process = Process.Start(info);
-            using StreamReader reader = process.StandardOutput;
-
-            return int.Parse(reader.ReadToEnd().Trim());
+            return sums.Max();
         }
 
-        public static int ProcessFile9(string path) {
-            string[] rawData = File.ReadAllLines(path);
-            List<int> buffer = new List<int>();
-
-            foreach (string i in rawData) {
-                buffer.Add(int.Parse(i));
-            }
-
-            buffer.Remove(buffer[0]);
-
+        public static List<(int, int)> Solve1000PositiveEDiff(List<int> buffer, int divisor) {
             List<(int, int)> pairs = new List<(int, int)>();
-
-            for (int i = 0; i < buffer.Count; i++) {
-                for (int j = 0; j < buffer.Count; j++) {
-                    if (i != j && (((buffer[i] + buffer[j]) % 80) == 0) && ((buffer[i] > 50) || (buffer[j] > 50))) {
-                        Console.WriteLine(buffer[i]);
-                        Console.WriteLine(buffer[j]);
-                        pairs.Add((buffer[i], buffer[j]));
-                    }
-                }
-            }
-
-            return pairs.Count / 2;
-        }
-
-
-        public static long ProcessFile3(string path) {
-            string[] rawData = File.ReadAllLines(path);
-            List<int> buffer = new List<int>();
-
-            foreach (string i in rawData) {
-                buffer.Add(int.Parse(i));
-            }
-
-            long k = buffer[0];
-            long n = buffer[1];
-
-            buffer.Remove((int)k);
-            buffer.Remove((int)n);
             
-            long nmax = 0;
-            long kmax = 0;
-
             for (int i = 0; i < buffer.Count; i++) {
-                nmax = Math.Max(nmax, buffer[(int)(i-k)]);
-                kmax = Math.Max(kmax, buffer[i] - k);
+                for (int j = i + 1; j < buffer.Count; j++) {
+                    if (i == j) continue;
+                    if (((Math.Abs(buffer[i] - buffer[j]) % 2) != 0) || (((buffer[i] % divisor) != 0) && ((buffer[j] % divisor) != 0))) continue;
+                    else {
+                        pairs.Add((i, j));
+                    }
+                }
             }
 
-            return kmax;
+            return pairs;
         }
-        public static int ProcessFile2(string path) {
-            string[] rawData = File.ReadAllLines(path);
-            List<int> buffer = new List<int>();
 
-            foreach (string i in rawData) {
-                buffer.Add(int.Parse(i));
+        public static List<(int, int)> Solve1000PositiveMultY(List<int> buffer, int num) {
+            List<(int, int)> pairs = new List<(int, int)>();
+            
+            for (int i = 0; i < buffer.Count; i++) {
+                for (int j = i + 1; j < buffer.Count; j++) {
+                    if (i == j) continue;
+                    if (((buffer[i] * buffer[j]) % num) != 0) continue;
+                    else {
+                        pairs.Add((i, j));
+                    }
+                }
             }
 
-            buffer.Remove(buffer[0]);
+            return pairs;
+        }
+
+        public static List<(int, int)> Solve1000PositiveDCond(List<int> buffer, int num) {
+            List<(int, int)> pairs = new List<(int, int)>();
+            
+            for (int i = 0; i < buffer.Count; i++) {
+                for (int j = i + 1; j < buffer.Count; j++) {
+                    if (i == j) continue;
+                    if ((((buffer[i] + buffer[j]) % 2) == 0) || (((buffer[i] * buffer[j]) % num) != 0)) continue;
+                    else {
+                        pairs.Add((i, j));
+                    }
+                }
+            }
+
+            return pairs;
+        }
+
+
+        public static List<(int, int)> Solve1000PositiveMultN(List<int> buffer, int num) {
+            List<(int, int)> pairs = new List<(int, int)>();
+            
+            for (int i = 0; i < buffer.Count; i++) {
+                for (int j = i + 1; j < buffer.Count; j++) {
+                    if (i == j) continue;
+                    if (((buffer[i] * buffer[j]) % num) == 0) continue;
+                    else {
+                        pairs.Add((i, j));
+                    }
+                }
+            }
+
+            return pairs;
+        }
+
+        public static string Solve(string filename, TaskType type, int num) {
+            List<int> buffer = ReadFile(filename);
 
             List<(int, int)> pairs = new List<(int, int)>();
 
-            for (int i = 0; i < buffer.Count; i++) {
-                for (int j = 0; j < buffer.Count; j++) {
-                    if (i == j) continue;
-                    else if (i != j && ((buffer[i] * buffer[j] % 62) != 0)) continue;
-                    else if (i != j && ((buffer[i] * buffer[j] % 62) == 0)) {
-                        pairs.Add((buffer[i], buffer[j]));
-                    }
-                }
+            switch (type) { 
+                case TaskType.MultN:
+                    pairs = Solve1000PositiveMultN(buffer, num);
+                    break;
+                case TaskType.MultY:
+                    pairs = Solve1000PositiveMultY(buffer, num);
+                    break;
+                case TaskType.EDiff:
+                    pairs = Solve1000PositiveEDiff(buffer, num);
+                    break;
+                case TaskType.DCond:
+                    pairs = Solve1000PositiveDCond(buffer, num);
+                    break;
             }
 
-            return pairs.Count / 2;
-        }
-
-        static int ProcessFile6(string path) {
-            string[] rawData = File.ReadAllLines(path);
-
-            int num = 0;
-
-            List<int> sub = new List<int>();
-            List<int> sum = new List<int>();
-
-            for (int i = 1; i < rawData.Length; i++) {
-                string[] pair = rawData[i].Split(" ");
-                
-                int num1 = int.Parse(pair[0]);
-                int num2 = int.Parse(pair[1]);
-
-                num = Math.Max(num1, num2);
-
-                sum.Add(num);
-
-                int diff = Math.Abs(num1 - num2);
-                if ((diff % 5) != 0) sub.Add(diff);
-            }
-
-            sub.Sort();
-
-            int totalsum = sum.Sum();
-
-            if ((totalsum % 5) == 0) {
-                return totalsum - sub[0];
-            }
-
-            return totalsum;
-        }
-
-        public static int ProcessFile5(string path) {
-            string[] rawData = File.ReadAllLines(path);
-            List<int> buffer = new List<int>();
-
-            foreach (string i in rawData) {
-                buffer.Add(int.Parse(i));
-            }
-
-            buffer.Remove(buffer[0]);
-
-            List<int> nums = new List<int>();
-
-            for (int i = 0; i < buffer.Count; i++) {
-                for (int j = 0; j < buffer.Count; j++) {
-                    for (int k = 0; k < buffer.Count; k++) {
-                        if (i == k || j == k || i == j) continue;
-                        else {
-                            int sum = buffer[i] + buffer[j] + buffer[k];
-
-                            if ((sum % 3) == 0) {
-                                nums.Add(sum);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return nums.Max();    
-        }
-
-        public static int ProcessFile4(string path) {
-            string[] rawData = File.ReadAllLines(path);
-            List<int> buffer = new List<int>();
-
-            foreach (string i in rawData) {
-                buffer.Add(int.Parse(i));
-            }
-
-            buffer.Remove(buffer[0]);
-
-            List<(int, int)> pairs = new List<(int, int)>();
-
-            for (int i = 0; i < buffer.Count; i++) {
-                for (int j = 0; j < buffer.Count; j++) {
-                    if (i == j) continue;
-                    else if (i != j && ((buffer[i] * buffer[j] % 26) != 0)) continue;
-                    else if (i != j && ((buffer[i] * buffer[j] % 26) == 0)) {
-                        pairs.Add((buffer[i], buffer[j]));
-                    }
-                }
-            }
-
-            return pairs.Count / 2;
-        }
-
-        public static (int, int) ProcessFile1(string path) {
-            string[] rawData = File.ReadAllLines(path);
-            List<int> buffer = new List<int>();
-
-            foreach (string i in rawData) {
-                buffer.Add(int.Parse(i));
-            }
-
-            buffer.Remove(buffer[0]);
-            int maxo17 = 0;
-            int maxe17 = 0;
-            int maxod = 0;
-            int maxev = 0;
-
-            foreach (int i in buffer) {
-                if (i > maxo17) {
-                    if ((i % 17) == 0 && (i % 2) != 0) {
-                        maxo17 = i;
-                    }
-                }
-                if (i > maxe17)  {
-                    if ((i % 17) == 0 && (i % 2) == 0) {
-                        maxe17 = i;
-                    } 
-                }
-                if (i > maxod) {
-                    if ((i % 2) != 0) {
-                        maxod = i;
-                    } 
-                }
-                if (i > maxev) {
-                    if ((i % 2) == 0) {
-                        maxev = i;
-                    }
-                }
-            }
-
-            int sumod = maxo17 + maxod;
-            int sumev = maxe17 + maxev;
-
-            if (sumod > sumev) {
-                if (maxod > maxo17) {
-                    return (maxod, maxo17);
-                } else {
-                    return (maxo17, maxod);
-                }
-            } else if (sumev > sumod) {
-                if (maxev > maxe17) {
-                    return (maxev, maxe17);
-                } else {
-                    return (maxe17, maxev);
-                } 
-            }
-
-            return (0, 0);
+            return $"{pairs.Count} {CalculateSums(pairs)}";
         }
     }
 }
