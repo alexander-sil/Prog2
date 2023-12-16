@@ -40,6 +40,25 @@ namespace Prog2 {
         
         }
 
+
+        public static string Solve2(string filename) {
+            List<int> buffer = ReadFile(filename);
+
+            List<(int, int)> pairs = new List<(int, int)>();
+
+            for (int i = 0; i < buffer.Count; i++) {
+                for (int j = i + 1; j < buffer.Count; j++) {
+                    if (i == j) continue;
+                    if ((buffer[i] % 160 == buffer[j] % 160) || (((buffer[i] % 7) != 0) && (buffer[j] % 7) != 0)) continue;
+                    else {
+                        pairs.Add((buffer[i], buffer[j]));
+                    }
+                }
+            }
+
+            return $"{pairs.Count} {CalculateSums(pairs)}";
+        }
+
         public static int CalculateSums(List<(int, int)> input) {
             List<int> sums = new List<int>();
 
@@ -74,7 +93,7 @@ namespace Prog2 {
                     if (i == j) continue;
                     if (((buffer[i] * buffer[j]) % num) != 0) continue;
                     else {
-                        pairs.Add((i, j));
+                        pairs.Add((buffer[i], buffer[j]));
                     }
                 }
             }
@@ -90,7 +109,7 @@ namespace Prog2 {
                     if (i == j) continue;
                     if ((((buffer[i] + buffer[j]) % 2) == 0) || (((buffer[i] * buffer[j]) % num) != 0)) continue;
                     else {
-                        pairs.Add((i, j));
+                        pairs.Add((buffer[i], buffer[j]));
                     }
                 }
             }
@@ -107,7 +126,7 @@ namespace Prog2 {
                     if (i == j) continue;
                     if (((buffer[i] * buffer[j]) % num) == 0) continue;
                     else {
-                        pairs.Add((i, j));
+                        pairs.Add((buffer[i], buffer[j]));
                     }
                 }
             }
