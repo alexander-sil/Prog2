@@ -10,6 +10,7 @@ namespace Prog2 {
         public enum TaskType { MultN, MultY, EDiff, DCond }
         public static void Main(string[] args)
         {
+<<<<<<< HEAD
             Console.WriteLine(Solve24_2("24.txt"));
         }
         public static int Solve24_1(string filename) {
@@ -34,6 +35,27 @@ namespace Prog2 {
             }
 
             return lengths.Max();
+=======
+            Console.WriteLine("ВНИМАНИЕ! Вывод кода может иметь погрешность! Пожалуйста, относитесь с пониманием.");
+            Console.WriteLine($"2 {Solve2("17o.txt")}");
+            Console.WriteLine($"3 {Solve("17.txt", TaskType.EDiff, 31)}");
+            Console.WriteLine($"4 {Solve("17(1).txt", TaskType.EDiff, 19)}");
+            Console.WriteLine($"5 {Solve("17(2).txt", TaskType.MultY, 10)}");
+            Console.WriteLine($"6 {Solve("17(3).txt", TaskType.MultY, 62)}");
+            Console.WriteLine($"7 {Solve("17(4).txt", TaskType.MultN, 14)}");
+            Console.WriteLine($"8 {Solve("17(5).txt", TaskType.MultN, 34)}");
+            Console.WriteLine($"9 {Solve("17(6).txt", TaskType.MultY, 26)}");
+            Console.WriteLine($"10 {Solve("17(7).txt", TaskType.DCond, 3)}");
+            Console.WriteLine($"11 {Solve("17(8).txt", TaskType.DCond, 5)}");
+            Console.WriteLine($"12 {Solve("17(9).txt", TaskType.MultY, 7)}");
+            Console.WriteLine($"13 {Solve("17(10).txt", TaskType.MultY, 9)}");
+            Console.WriteLine($"14 {Solve("17(11).txt", TaskType.MultY, 8)}");
+            Console.WriteLine($"15 {Solve("17(12).txt", TaskType.MultY, 10)}");
+            Console.WriteLine($"16 {Solve("17(13).txt", TaskType.MultY, 117)}");
+            Console.WriteLine($"17 {Solve("17(14).txt", TaskType.MultY, 120)}");
+            Console.WriteLine($"18 {Solve("17(15).txt", TaskType.MultY, 126)}");
+            Console.WriteLine($"19 {Solve("17(16).txt", TaskType.MultY, 80)}");
+>>>>>>> 8f14d4206884e1f31d7b6f6158c0302bd946d303
         }
 
         public static int Solve24_2(string filename) {
