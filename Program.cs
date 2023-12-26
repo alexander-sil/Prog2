@@ -10,9 +10,50 @@ namespace Prog2 {
         public enum TaskType { MultN, MultY, EDiff, DCond }
         public static void Main(string[] args)
         {
-<<<<<<< HEAD
             Console.WriteLine(Solve24_2("24.txt"));
         }
+
+        public static int Solve27_3(string filename) {
+            List<int> data = ReadFile(filename);
+            List<int> buff = new List<int>();
+
+            data.Remove(data[0]);
+
+            for (int i = 0; i < data.Count; i++) {
+                for (int j = 0; j < data.Count; j++) {
+                    if (i != j) {
+                        buff.Add(data[i] * data[j]);
+                    } else continue;
+                }
+            }
+
+            buff = buff.Where(f => (f % 14) == 0).ToList();
+
+            return buff.Max();
+        
+        }
+
+
+        public static int Solve27_4(string filename) {
+            List<int> data = ReadFile(filename);
+            List<int> buff = new List<int>();
+
+            data.Remove(data[0]);
+
+            for (int i = 0; i < data.Count; i++) {
+                for (int j = 0; j < data.Count; j++) {
+                    if (i != j) {
+                        buff.Add(data[i] * data[j]);
+                    } else continue;
+                }
+            }
+
+            buff = buff.Where(f => (f % 14) == 0).ToList();
+
+            return buff.Max();
+        
+        }
+
         public static int Solve24_1(string filename) {
             char[] data = ReadFileByChar(filename);
             List<int> lengths = new List<int>();
@@ -35,27 +76,6 @@ namespace Prog2 {
             }
 
             return lengths.Max();
-=======
-            Console.WriteLine("ВНИМАНИЕ! Вывод кода может иметь погрешность! Пожалуйста, относитесь с пониманием.");
-            Console.WriteLine($"2 {Solve2("17o.txt")}");
-            Console.WriteLine($"3 {Solve("17.txt", TaskType.EDiff, 31)}");
-            Console.WriteLine($"4 {Solve("17(1).txt", TaskType.EDiff, 19)}");
-            Console.WriteLine($"5 {Solve("17(2).txt", TaskType.MultY, 10)}");
-            Console.WriteLine($"6 {Solve("17(3).txt", TaskType.MultY, 62)}");
-            Console.WriteLine($"7 {Solve("17(4).txt", TaskType.MultN, 14)}");
-            Console.WriteLine($"8 {Solve("17(5).txt", TaskType.MultN, 34)}");
-            Console.WriteLine($"9 {Solve("17(6).txt", TaskType.MultY, 26)}");
-            Console.WriteLine($"10 {Solve("17(7).txt", TaskType.DCond, 3)}");
-            Console.WriteLine($"11 {Solve("17(8).txt", TaskType.DCond, 5)}");
-            Console.WriteLine($"12 {Solve("17(9).txt", TaskType.MultY, 7)}");
-            Console.WriteLine($"13 {Solve("17(10).txt", TaskType.MultY, 9)}");
-            Console.WriteLine($"14 {Solve("17(11).txt", TaskType.MultY, 8)}");
-            Console.WriteLine($"15 {Solve("17(12).txt", TaskType.MultY, 10)}");
-            Console.WriteLine($"16 {Solve("17(13).txt", TaskType.MultY, 117)}");
-            Console.WriteLine($"17 {Solve("17(14).txt", TaskType.MultY, 120)}");
-            Console.WriteLine($"18 {Solve("17(15).txt", TaskType.MultY, 126)}");
-            Console.WriteLine($"19 {Solve("17(16).txt", TaskType.MultY, 80)}");
->>>>>>> 8f14d4206884e1f31d7b6f6158c0302bd946d303
         }
 
         public static int Solve24_2(string filename) {
@@ -472,136 +492,7 @@ namespace Prog2 {
             return count;
         }
 
-        public static int Solve24_18(string filename) {
-            string[] data = File.ReadAllLines(filename);
-            List<KeyValuePair<int, char> pairs = new List<KeyValuePair<int, char>();
-            
-            foreach (string s in data) {
-               try {
-                int A = 0;
-                int B = 0;
-                int C = 0;
-                int D = 0;
-                int E = 0;
-                int F = 0;
-                int G = 0;
-                int H = 0;
-                int I = 0;
-                int J = 0;
-                int K = 0;
-                int L = 0;
-                int M = 0;
-                int N = 0;
-                int O = 0;
-                int P = 0;
-                int Q = 0;
-                int R = 0;
-                int S = 0;
-                int T = 0;
-                int U = 0;
-                int V = 0;
-                int W = 0;
-                int X = 0;
-                int Y = 0;
-                int Z = 0;
-
-
-                for (int i = 0; i < s.Length; i++) {
-                    if (s[i].Equals('A')) {
-                        switch (s[i+1]) {
-                            case 'A':
-                                A++;
-                                break;
-                            case 'B':
-                                B++;
-                                break;
-                            case 'C':
-                                C++;
-                                break;
-                            case 'D':
-                                D++;
-                                break;      
-                            case 'E':
-                                E++;
-                                break;
-                            case 'F':
-                                F++;
-                                break;
-                            case 'G':
-                                G++;
-                                break;
-                            case 'H':
-                                H++;
-                                break;        
-                            case 'I':
-                                I++;
-                                break;
-                            case 'J':
-                                J++;
-                                break;
-                            case 'K':
-                                K++;
-                                break;
-                            case 'L':
-                                L++;
-                                break;      
-                            case 'M':
-                                M++;
-                                break;
-                            case 'N':
-                                N++;
-                                break;
-                            case 'O':
-                                O++;
-                                break;
-                            case 'P':
-                                P++;
-                                break;  
-                            case 'Q':
-                                Q++;
-                                break;
-                            case 'R':
-                                R++;
-                                break;
-                            case 'S':
-                                S++;
-                                break;
-                            case 'T':
-                                T++;
-                                break;      
-                            case 'U':
-                                U++;
-                                break;
-                            case 'V':
-                                V++;
-                                break;
-                            case 'W':
-                                W++;
-                                break;
-                            case 'X':
-                                X++;
-                                break;   
-                            case 'Y':
-                                Y++;
-                                break;
-                            case 'Z':
-                                Z++;
-                                break;                   
-                        }
-                    }
-                }
-                
-              
-            }  catch {
-                break;
-            }
-            
-            List<string> list = new List<string>();
-            list.AddRange(new[] { $"A{A}", })
-
-            return count;
-        }
-        }
+       
         public static List<int> ReadFile(string path)
         {
             List<int> list = new List<int>();
