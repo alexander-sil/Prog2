@@ -36,22 +36,23 @@ namespace Prog2 {
 
         public static int Solve27_4(string filename) {
             List<int> data = ReadFile(filename);
-            List<int> buff = new List<int>();
-
+            int count = default;
+            
             data.Remove(data[0]);
-
+            
             for (int i = 0; i < data.Count; i++) {
                 for (int j = 0; j < data.Count; j++) {
                     if (i != j) {
-                        buff.Add(data[i] * data[j]);
+                        int mult = data[i] * data[j];
+
+                        if ((mult % 26) == 0) {
+                            count++;
+                        } else continue;
                     } else continue;
                 }
             }
 
-            buff = buff.Where(f => (f % 14) == 0).ToList();
-
-            return buff.Max();
-        
+            return count / 2;
         }
 
         public static int Solve24_1(string filename) {
