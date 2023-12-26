@@ -39,7 +39,7 @@ namespace Prog2 {
             int count = default;
             
             data.Remove(data[0]);
-            
+
             for (int i = 0; i < data.Count; i++) {
                 for (int j = 0; j < data.Count; j++) {
                     if (i != j) {
@@ -53,6 +53,76 @@ namespace Prog2 {
             }
 
             return count / 2;
+        }
+
+        public static int Solve27_5(string filename) {
+            List<int> data = ReadFile(filename);
+            int count = default;
+            
+            data.Remove(data[0]);
+
+            for (int i = 0; i < data.Count; i++) {
+                for (int j = 0; j < data.Count; j++) {
+                    if (i != j) {
+                        int mult = data[i] * data[j];
+
+                        if ((mult % 62) == 0) {
+                            count++;
+                        } else continue;
+                    } else continue;
+                }
+            }
+
+            return count / 2;
+        }
+
+        public static int Solve27_7(string filename) {
+            List<int> data = ReadFile(filename);
+            int count = default;
+            
+            data.Remove(data[0]);
+
+            for (int i = 0; i < data.Count; i++) {
+                for (int j = 0; j < data.Count; j++) {
+                    if (i != j) {
+                        int sum = data[i] + data[j];
+                        int prod = data[i] * data[j];
+
+                        if ((sum % 3) == 0) {
+                            if ((prod % 4096) == 0) count++;
+                        } else continue;
+                    
+
+                    } else continue;
+                }
+            }
+
+            return count / 2;
+        }
+
+
+        public static int Solve27_8(string filename) {
+            List<int> data = ReadFile(filename);
+            List<int> buff = new List<int>();
+            
+            data.Remove(data[0]);
+
+            for (int i = 0; i < data.Count; i++) {
+                for (int j = 0; j < data.Count; j++) {
+                    for (int k = 0; k < data.Count; k++) {
+                        if ((i != j) && (j != k)) {
+                            int sum = data[i] + data[j] + data[k];
+
+                            if ((sum % 3) == 0) {
+                                buff.Add(sum);
+                            } else continue;
+                            
+                        } else continue;
+                    }
+                }
+            }
+
+            return buff.Max();
         }
 
         public static int Solve24_1(string filename) {
